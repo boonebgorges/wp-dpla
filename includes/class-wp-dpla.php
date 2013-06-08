@@ -74,6 +74,22 @@ class WP_DPLA {
 
 			wp_redirect( $redirect_to );
 		}
+
+		if ( isset( $_GET['delete-key'] ) && 1 === (int) $_GET['delete-key'] ) {
+			delete_option( 'dpla_api_key' );
+			wp_redirect( $redirect_to );
+		}
+
+		if ( isset( $_POST['dpla-settings-save'] ) ) {
+			check_admin_referer( 'dpla-settings-save' );
+			$show_on_posts = isset( $_POST['show-on-posts'] ) ? 'on' : 'off';
+
+			if ( update_option( 'dpla_show_on_posts', $show_on_posts ) ) {
+				$redirect_to = add_query_arg( 'success', 'true', $redirect_to );
+			}
+
+			wp_redirect( $redirect_to );
+		}
 	}
 
 	public function admin_menu_cb() {
@@ -100,9 +116,38 @@ class WP_DPLA {
 
 	public function admin_menu_settings() {
 		$api_key = $this->get_api_key();
+		$show_on_posts = get_option( 'dpla_show_on_posts', 'on' );
+
+		$saved = isset( $_GET['success'] ) && 'true' == $_GET['success'];
 
 		?>
-		<p><?php printf( __( 'Your API key is: <strong>%s</strong>', 'wp-dpla' ), $api_key ) ?></p>
+
+		<?php if ( $saved ) : ?>
+			<div class="message updated">
+				<p><?php _e( 'Settings saved.', 'wp-dpla' ) ?></p>
+			</div>
+		<?php endif ?>
+
+		<form action="" method="post">
+
+			<table class="form-table">
+				<tr>
+					<th scope="col"><label for="show-on-posts"><?php _e( 'Show on posts?', 'wp-dpla' ) ?></label></th>
+					<td>
+						<input type="checkbox" name="show-on-posts" value="on" id="show-on-posts" <?php checked( 'on', $show_on_posts ) ?> /> <p class="description"><?php _e( 'Four random items will be displayed under single posts. Note you can use a widget instead.', 'wp-dpla' ) ?></p>
+					</td>
+				</tr>
+			</table>
+
+			<?php wp_nonce_field( 'dpla-settings-save' ) ?>
+
+			<input name="dpla-settings-save" type="submit" class="button" value="<?php _e( 'Save', 'wp-dpla' ) ?>" />
+
+		</form>
+
+		<hr />
+
+		<p><?php printf( __( 'Your API key is: <strong>%s</strong>', 'wp-dpla' ), $api_key ) ?> <em><small><a class="delete confirm" href="<?php echo add_query_arg( 'delete-key', '1' ) ?>"><?php _e( 'Delete', 'wp-dpla' ) ?></a></small></em></p>
 		<?php
 	}
 

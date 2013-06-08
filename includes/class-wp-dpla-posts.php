@@ -2,8 +2,11 @@
 
 class WP_DPLA_Posts {
 	public function __construct() {
-		// @todo Add an option
-		add_filter( 'the_content', array( $this, 'append_to_the_content' ) );
+		$show_on_posts = get_option( 'dpla_show_on_posts', 'on' );
+
+		if ( 'on' == $show_on_posts ) {
+			add_filter( 'the_content', array( $this, 'append_to_the_content' ) );
+		}
 	}
 
 	public function append_to_the_content( $content ) {
