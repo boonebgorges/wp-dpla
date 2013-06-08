@@ -1,0 +1,3 @@
+[submodule "lib/php-dpla"]
+	path = lib/php-dpla
+	url = git@github.com:3ft9/php-dpla

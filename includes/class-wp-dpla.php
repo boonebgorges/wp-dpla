@@ -8,7 +8,9 @@ class WP_DPLA {
 		add_action( 'admin_menu', array( $this, 'catch_form_submits' ) );
 
 		if ( $this->get_api_key() ) {
+			require __DIR__ . '/class-wp-dpla-query.php';
 			add_action( 'widgets_init', array( $this, 'widgets_init' ) );
+			add_action( 'init', array( $this, 'posts_init' ) );
 		} else {
 			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 		}
@@ -32,6 +34,11 @@ class WP_DPLA {
 			<p><strong><?php _e( 'WP DPLA is not set up correctly.', 'wp-dpla' ) ?></strong> <?php printf( __( 'Visit <a href="%s">the DPLA settings page</a> to request and enter your API key.', 'wp-dpla' ), $admin_page ) ?></p>
 		</div>
 		<?php
+	}
+
+	public function posts_init() {
+		require __DIR__ . '/class-wp-dpla-posts.php';
+		$this->posts = new WP_DPLA_Posts();
 	}
 
 	public function widgets_init() {

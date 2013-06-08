@@ -28,25 +28,26 @@ class WP_DPLA_Widget extends WP_Widget {
 	}
 
 	public function widget( $args, $instance ) {
+		echo $this->styles();
+
 		echo $args['before_widget'];
 		echo '<h3 class="widget-title">' . $instance['title'] . '</h3>';
 
-		echo $this->get_items_markup();
+		$dpla_query = new WP_DPLA_Query();
+		echo $dpla_query->get_items_markup();
 
 		echo $args['after_widget'];
 	}
 
-	public function get_items_markup() {
-		$html = '';
-		$items = $this->get_items();
-		return $html;
-	}
-
-	public function get_items() {
-		$post = get_post();
-		if ( isset( $post->ID ) ) {
-			$terms = wp_get_post_tags( $post->ID );
-			var_dump( $terms );
-		}
+	public function styles() {
+		?>
+<style type="text/css">
+.widget .dpla-results li {
+	float: none;
+	width: auto;
+	margin-bottom: 2rem;
+}
+</style>
+		<?php
 	}
 }
