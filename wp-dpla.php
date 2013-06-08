@@ -1,13 +1,11 @@
 <?php
 /*
-Plugin Name: Wp-dpla
+Plugin Name: WP DPLA
 Version: 0.1-alpha
-Description: PLUGIN DESCRIPTION HERE
-Author: YOUR NAME HERE
-Author URI: YOUR SITE HERE
-Plugin URI: PLUGIN SITE HERE
+Description: Display related items from the Digital Public Library of America on your WP posts
+Author: Boone B Gorges
+Author URI: http://boone.gorg.es
 Text Domain: wp-dpla
-Domain Path: /languages
 */
 
 function wp_dpla() {
