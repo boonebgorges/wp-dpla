@@ -6,6 +6,7 @@ class WP_DPLA_Posts {
 
 		if ( 'on' == $show_on_posts ) {
 			add_filter( 'the_content', array( $this, 'append_to_the_content' ) );
+			add_action( 'save_post', array( $this, 'flush_transient' ) );
 		}
 	}
 
@@ -19,6 +20,11 @@ class WP_DPLA_Posts {
 		$content .= $dpla_query->get_items_markup();
 
 		return $content;
+	}
+
+	public function flush_transient( $post_id ) {
+		$tkey = 'dpla_random_posts_post_' . $post_id;
+		delete_transient( $tkey );
 	}
 
 	public function styles() {

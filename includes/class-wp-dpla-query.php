@@ -2,6 +2,7 @@
 
 class WP_DPLA_Query {
 	protected $_dpla;
+	protected $fetched_items = array();
 
 	public function get_items_markup() {
 		$post = get_post();
@@ -75,6 +76,9 @@ class WP_DPLA_Query {
 				$this->total_count = $pre_query->getTotalCount();
 
 				$item_count = isset( $args['per_page'] ) ? (int) $args['per_page'] : 4;
+				if ( $item_count > $this->total_count ) {
+					$item_count = $this->total_count;
+				}
 
 				for ( $i = 0; $i < $item_count; $i++ ) {
 					$retval[] = $this->get_random_item_by_search_term( $args['search_term'] );
@@ -93,6 +97,13 @@ class WP_DPLA_Query {
 
 		$query = $this->create_query( $qargs );
 		$item = array_pop( $query->getDocuments() );
+
+		// No dupes
+		if ( in_array( $item['isShownAt'], $this->fetched_items ) ) {
+			$retval = $this->get_random_item_by_search_term( $search_term );
+		} else {
+			$this->fetched_items[] = $item['isShownAt'];
+		}
 
 		// sometimes a field is empty
 		if ( ! isset( $item['sourceResource']['title'], $item['object'], $item['isShownAt'], $item['provider']['name'], $item['provider']['@id'] ) ) {
