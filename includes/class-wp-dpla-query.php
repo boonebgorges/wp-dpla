@@ -120,8 +120,11 @@ class WP_DPLA_Query {
 			$retval = $this->get_random_item_by_search_term( $search_term );
 		}
 
+		// If the title is an array, just take the first item
+		$title = is_array( $item['sourceResource']['title'] ) ? array_pop( array_reverse( $item['sourceResource']['title'] ) ) : $item['sourceResource']['title'];
+
 		return array(
-			'title' => $item['sourceResource']['title'],
+			'title' => $title,
 			'thumbnail' => $item['object'],
 			'item_url' => $item['isShownAt'],
 			'provider_name' => $item['provider']['name'],
