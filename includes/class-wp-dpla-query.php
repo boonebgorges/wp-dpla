@@ -110,6 +110,11 @@ class WP_DPLA_Query {
 			$retval = $this->get_random_item_by_search_term( $search_term );
 		}
 
+		// We need a thumbnail
+		if ( empty( $item['object'] ) ) {
+			$retval = $this->get_random_item_by_search_term( $search_term );
+		}
+
 		// sometimes a field is not a string
 		if ( ! is_string( $item['sourceResource']['title'] ) || ! is_string( $item['object'] ) || ! is_string( $item['isShownAt'] ) || ! is_string( $item['provider']['name'] ) || ! is_string( $item['provider']['@id'] ) ) {
 			$retval = $this->get_random_item_by_search_term( $search_term );
