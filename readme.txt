@@ -16,5 +16,8 @@ This plugin was originally developed for the Maker Challenge at <a href="http://
 
 == Changelog ==
 
+= 0.2-alpha =
+* Improved PHP 5.4 compatibility
+
 = 0.1-alpha =
 * Initial beta releas
