@@ -4,7 +4,7 @@ Tags: dpla, library
 Requires at least: WP 3.5
 Tested up to: WP 3.6
 Donate link: http://teleogistic.net/donate/
-Stable tag: 0.1-alpha
+Stable tag: 0.2-alpha
 
 Display related items from the Digital Public Library of America on your WP posts
 
