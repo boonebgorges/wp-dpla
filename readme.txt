@@ -18,6 +18,7 @@ This plugin was originally developed for the Maker Challenge at <a href="http://
 
 = 0.2-alpha =
 * Improved PHP 5.4 compatibility
+* Don't let images get too big
 
 = 0.1-alpha =
 * Initial beta releas
