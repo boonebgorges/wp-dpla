@@ -84,7 +84,11 @@ class WP_DPLA_Query {
 			$terms = wp_get_post_tags( $post->ID );
 
 			if ( ! empty( $terms ) ) {
-				$args['search_term'] = implode( ' OR ', wp_list_pluck( $terms, 'name' ) );
+				$search_terms = array();
+				foreach ( wp_list_pluck( $terms, 'name' ) as $raw_term ) {
+					$search_terms[] = urlencode( $raw_term );
+				}
+				$args['search_term'] = implode( ' OR ', $search_terms );
 
 				// We'll get random items, but we first do a
 				// preliminary query to get a range
