@@ -20,6 +20,8 @@ This plugin was originally developed for the Maker Challenge at <a href="http://
 * Fix bug that caused recursive requests to DPLA in some cases
 * Improve caching for better performance and citizenship
 * Miscellaneous performance improvements
+* Fix a bug related to multi-word tags
+* Improve search relevance
 
 = 0.2 =
 * Improved PHP 5.4 compatibility
