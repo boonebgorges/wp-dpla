@@ -164,8 +164,8 @@ class WP_DPLA_Query {
 	protected function get_dpla() {
 		if ( ! isset( $this->_dpla ) ) {
 			$api_key = get_option( 'dpla_api_key' );
-			require_once __DIR__ . '/../lib/php-dpla/tfn/dpla.php';
-			$this->_dpla = new \TFN\DPLA( $api_key );
+			require_once __DIR__ . '/dpla/class-wp-dpla-dpla.php';
+			$this->_dpla = new \TFN\WP_DPLA_DPLA( $api_key );
 		}
 
 		return $this->_dpla;
