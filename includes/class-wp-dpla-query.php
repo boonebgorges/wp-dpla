@@ -115,7 +115,8 @@ class WP_DPLA_Query {
 		);
 
 		$query = $this->create_query( $qargs );
-		$item = array_pop( $query->getDocuments() );
+		$documents = $query->getDocuments();
+		$item = array_pop( $documents );
 
 		// No dupes
 		if ( in_array( $item['isShownAt'], $this->fetched_items ) ) {
