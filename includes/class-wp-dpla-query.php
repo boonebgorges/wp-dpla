@@ -93,7 +93,7 @@ class WP_DPLA_Query {
 				$pre_args['per_page'] = 1;
 				$pre_args['fields'] = implode( ',', array(
 					'isShownAt',
-					'sourceResource',
+					'sourceResource.title',
 					'object',
 					'provider',
 				) );
