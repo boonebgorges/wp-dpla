@@ -91,6 +91,12 @@ class WP_DPLA_Query {
 				$pre_args = $args;
 				$pre_args['page'] = 1;
 				$pre_args['per_page'] = 1;
+				$pre_args['fields'] = implode( ',', array(
+					'isShownAt',
+					'sourceResource',
+					'object',
+					'provider',
+				) );
 				$pre_query = $this->create_query( $pre_args );
 				$this->total_count = $pre_query->getTotalCount();
 
