@@ -169,7 +169,7 @@ class WP_DPLA_Query {
 			'search_term' => '',
 		) );
 
-		return $this->get_dpla()->createSearchQuery()->forText( $r['search_term'] )->withPaging( $r['page'], $r['per_page'] )->execute();
+		return $this->get_dpla()->createSearchQuery()->withSourceResourceField( 'title', $r['search_term'] )->withPaging( $r['page'], $r['per_page'] )->execute();
 	}
 
 	protected function get_dpla() {
