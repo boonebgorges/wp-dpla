@@ -39,8 +39,6 @@ class WP_DPLA_DPLA extends DPLA {
 			}
 			$response = $decoded;
 		}
-		var_Dump( debug_backtrace() );
-		var_dump( $response ); die();
 
 		return $response;
 	}
