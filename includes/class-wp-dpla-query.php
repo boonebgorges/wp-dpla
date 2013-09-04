@@ -11,12 +11,15 @@ class WP_DPLA_Query {
 			return '';
 		}
 
-		$tkey = 'dpla_random_posts_post_' . $post->ID;
+		$tkey = $this->get_transient_key( $post->ID );
 		$items = get_transient( $tkey );
+
+		// Six hours by default
+		$expiration = $this->get_expiration();
 
 		if ( false === $items ) {
 			$items = $this->get_random_items_for_post();
-			set_transient( $tkey, $items, 5 * 60 );
+			set_transient( $tkey, $items, $expiration );
 		}
 
 		if ( empty( $items ) ) {
@@ -56,6 +59,22 @@ class WP_DPLA_Query {
 		$items_markup .= '</ul>';
 
 		return $items_markup;
+	}
+
+	protected function get_transient_key( $post_id ) {
+		return 'dpla_random_posts_post_' . $post_id;
+	}
+
+	protected function get_expiration() {
+		$expiration = (int) apply_filters( 'wp_dpla_cache_expiration_time', 6 * 60 * 60 );
+
+		// Prevent API flooding - don't allow a value less than
+		// 10 minutes
+		if ( $expiration < 600 ) {
+			$expiration = 600;
+		}
+
+		return $expiration;
 	}
 
 	public function get_random_items_for_post( $args = array() ) {
